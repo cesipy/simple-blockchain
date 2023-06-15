@@ -1,6 +1,6 @@
 import block
 
-DIFF = 3
+DIFF = 4                # change if you want faster block creation
 
 def main():
 
@@ -9,4 +9,5 @@ def main():
     block.proof_of_work(genisis_block)
 
 
-main()
+if __name__ == '__main__':
+    main()
