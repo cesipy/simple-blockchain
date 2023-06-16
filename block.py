@@ -23,13 +23,15 @@ def proof_of_work(block):
     difficulty = block.difficulty       
     current_nonce = block.nonce
 
-    trying_hash = hash_function.calculate_hash(block, current_nonce)    # is first computed hash a valid hash
-    difficulty_compare = '0' * difficulty                         # essentially '00...' - amount of leading zeros
+    trying_hash = hash_function.calculate_hash(
+        block, current_nonce)    # is first computed hash a valid hash
+    difficulty_compare = '0' * difficulty    # essentially '00...' - amount of leading zeros
 
     # use bruteforce to find valid hash
     while (trying_hash[0:difficulty] != difficulty_compare):
         current_nonce+= 1
-        trying_hash = hash_function.calculate_hash(block, current_nonce)
+        trying_hash = hash_function.calculate_hash(
+            block, current_nonce)
 
     return trying_hash
     
