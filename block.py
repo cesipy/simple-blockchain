@@ -1,26 +1,28 @@
 import time
 import hash_function
+import metadata
 
 class Block:
-    def __init__(self, prev_hash,  nonce, hash, transactions, difficulty):
+    def __init__(self, prev_hash,  nonce, hash, transactions, metadata):
         self.prev_hash = prev_hash
         self.timestamp = time.time()
         self.nonce = nonce
         self.hash = hash
         self.transactions = transactions
-        self.difficulty = difficulty
+        self.metadata = metadata
 
     def __repr__(self):
         return f"Block : {self.hash} from {self.timestamp}"
     
 
 def create_first_block(difficulty):
-    block =  Block("0", 0, "hash", [], difficulty)
+    meta = metadata.Metadata(difficulty, 1.0, 6.5)
+    block =  Block("0", 0, "hash", [], meta)
     return block
 
 
 def proof_of_work(block):
-    difficulty = block.difficulty       
+    difficulty = block.metadata.difficulty       
     current_nonce = block.nonce
 
     trying_hash = hash_function.calculate_hash(
