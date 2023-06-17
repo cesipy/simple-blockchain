@@ -6,8 +6,15 @@ def main():
 
     # generate genisis block
     genisis_block = block.create_first_block(DIFF)
-    next_block = block.create_next_block(genisis_block)
+    previous_block = genisis_block
+    print(previous_block, '\n')
     
+    # create
+    for i in range(5):
+        current_block = block.create_next_block(previous_block)
+        print(current_block, '\n')
+        previous_block = current_block
+
 
 
 if __name__ == '__main__':
