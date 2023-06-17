@@ -16,6 +16,5 @@ def main():
         previous_block = current_block
 
 
-
 if __name__ == '__main__':
     main()
