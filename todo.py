@@ -1,6 +1,6 @@
 '''
     TODO:
-        - add block number in metadata
+        - add block number in metadata              √
         - add type definition to all functions
 
         - transactions 
@@ -10,7 +10,8 @@
             - validate transactions
             
 
-        - add a public ledger that more 'miners' can work on the project
+        - add a public ledger that more 'miners' 
+          can work on the project
             - create a Blockchain class
             - make a method to save to file
 
