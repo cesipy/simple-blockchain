@@ -10,7 +10,7 @@ class Block:
         self.prev_hash = prev_hash
         self.timestamp = time.time()
         self.nonce = nonce
-        self.hash = hash_function.calculate_hash(self)      # hash is calculated, so does not need to be passed in contructor
+        self.hash = hash_function.calculate_hash(self) # hash is calculated, so does not need to be passed in contructor
         self.transactions = transactions        
         self.metadata = metadata
 
@@ -18,22 +18,20 @@ class Block:
         return f"Block : {self.hash} from {self.timestamp}"
     
 
-def create_first_block(difficulty):
-    meta = metadata.Metadata(difficulty, 1.0, 6.5)
+def create_first_block(difficulty: int):
+    rewards = 6.5
+    block_number = 1
+    meta = metadata.Metadata(difficulty, 1.0, rewards, block_number)
     block =  Block("0", 0,  [], meta)
     return block
 
 
-def create_next_block(previous_block):
-    '''
-    TODO:
-        - create new hash
-        - calculate new nonce (maybe random)
-        - simulate transactions
-        - update metadata if a counter is reachd (ex.: increase difficulty)
-        - do the proof of work
-    '''
-    meta = previous_block.metadata
+def create_next_block(previous_block : Block):
+    metadata_from_prev = previous_block.metadata
+    # get all the parameter for metadata from prev block
+    difficulty, version, rewards, block_number = metadata_from_prev.get_params()
+    meta = metadata.Metadata(difficulty, version, rewards, block_number)
+
     new_nonce = random.randint(1, RANGE)
     block = Block(previous_block.hash, new_nonce, [], meta)
 
