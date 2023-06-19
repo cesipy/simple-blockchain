@@ -15,7 +15,7 @@ class Block:
         self.metadata = metadata
 
     def __repr__(self):
-        return f"Block : {self.hash} from {self.timestamp}"
+        return f"Block {self.metadata.block_number}: {self.hash} from {self.timestamp}"
     
 
 def create_first_block(difficulty: int):
@@ -25,11 +25,12 @@ def create_first_block(difficulty: int):
     block =  Block("0", 0,  [], meta)
     return block
 
-
+# fixed block number, commit is necessary!!
 def create_next_block(previous_block : Block):
     metadata_from_prev = previous_block.metadata
     # get all the parameter for metadata from prev block
     difficulty, version, rewards, block_number = metadata_from_prev.get_params()
+    block_number+=1
     meta = metadata.Metadata(difficulty, version, rewards, block_number)
 
     new_nonce = random.randint(1, RANGE)
