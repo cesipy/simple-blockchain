@@ -18,15 +18,15 @@ class Block:
         return f"Block {self.metadata.block_number}: {self.hash} from {self.timestamp}"
     
 
-def create_first_block(difficulty: int):
+def create_first_block(difficulty: int ) -> Block:
     rewards = 6.5
     block_number = 1
     meta = metadata.Metadata(difficulty, 1.0, rewards, block_number)
     block =  Block("0", 0,  [], meta)
     return block
 
-# fixed block number, commit is necessary!!
-def create_next_block(previous_block : Block):
+
+def create_next_block(previous_block : Block) -> Block:
     metadata_from_prev = previous_block.metadata
     # get all the parameter for metadata from prev block
     difficulty, version, rewards, block_number = metadata_from_prev.get_params()
@@ -39,7 +39,7 @@ def create_next_block(previous_block : Block):
     return proof_of_work(block)
 
 
-def proof_of_work(block):
+def proof_of_work(block : Block) -> Block:
     difficulty = block.metadata.difficulty       
 
     trying_hash = hash_function.calculate_hash(

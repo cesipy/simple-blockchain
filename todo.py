@@ -1,7 +1,7 @@
 '''
     TODO:
         - add block number in metadata              √
-        - add type definition to all functions
+        - add type definition to all functions      √
 
         - transactions 
             - class of transactions
