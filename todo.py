@@ -6,6 +6,7 @@
         - transactions 
             - class of transactions
             - random transactions simulator
+            - own functuion to create a list of transactions that will be added to the next block
             - add transactions at block creation
             - validate transactions
             
