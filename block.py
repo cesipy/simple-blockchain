@@ -12,7 +12,7 @@ class Block:
         self.timestamp = time.time()
         self.nonce = nonce
         self.hash = hash_function.calculate_hash(
-            self)  # hash is calculated, so does not need to be passed in contructor
+            self)  # hash is calculated, so does not need to be passed in constructor
         self.transactions = transactions
         self.metadata = meta_data
 
