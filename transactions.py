@@ -1,39 +1,29 @@
+from transaction import Transaction
+from wallet import Wallet
 import random
 
+def create_wallets(number_wallets: int) -> [Wallet]:
+    wallets = []
+    for i in range(number_wallets):
+        new_wallet = Wallet(i, random.uniform(1.0, 100.0))
+        wallets.append(new_wallet)
 
-class Transaction:
-
-    def __init__(self, sender, recipient, amount, transaction_id):
-        self.sender    = sender
-        self.recipient = recipient
-        self.amount    = amount
-        self.id        = transaction_id
-
-    def __repr__(self):
-        ret = f"Transaction:\n \t" \
-              f"Sender:    {self.sender}\n\t" \
-              f"Recipient: {self.recipient}\n\t" \
-              f"amount:    {self.amount}\n"
-        return ret
+    return wallets
 
 
-def simulate_transactions(amount_transactions: int) -> [Transaction]:
+def simulate_transactions(amount_interactions: int, wallet_list: [Wallet]) -> [Transaction]:
     counter = 0
     transaction_list = []
-    while counter < amount_transactions:
-        # create a random sender, recipient and amount
-        randomized_sender = random.randint(1000, 9999)  # exchange with wallet constructor afterward
-        randomized_recipient = random.randint(1000, 9999)
-        randomized_amount = random.random()
 
-        while randomized_sender == randomized_recipient:
-            randomized_recipient = random.randint(1000, 9999)
+    while counter < amount_interactions:
+        sender = wallet_list[random.randint(0, len(wallet_list) - 1)]
+        recipient = wallet_list[random.randint(0, len(wallet_list) - 1)]
 
-        # create transaction based on the random data
-        transaction = Transaction(randomized_sender, randomized_recipient, randomized_amount, counter+1)
+        while sender == recipient:
+            recipient = wallet_list[random.randint(0, len(wallet_list) - 1)]
+
+        amount = random.uniform(0.001, sender.get_balance())
+        transaction = sender.send(recipient, amount)
         transaction_list.append(transaction)
 
-        counter += 1
-
     return transaction_list
-

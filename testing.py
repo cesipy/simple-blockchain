@@ -1,6 +1,7 @@
 import block
 import hash_function
 import transactions
+import wallet
 
 DIFF = 3  # change if you want faster block creation
 
@@ -14,11 +15,28 @@ def test_hash_function():
 # testing the transaction class:
 def test_transactions():
     print("transactions:")
+    wallet1 = wallet.Wallet(12, balance=12)
+    wallet2 = wallet.Wallet(11)
     transaction1 = transactions.Transaction(123, 899, 0.01, 1234)
     print(transaction1)
 
     transaction_list = transactions.simulate_transactions(19)
     print(transaction_list)
+
+
+def test_wallet():
+    print("wallets:")
+    wallet1 = wallet.Wallet(12, balance=12)
+    wallet2 = wallet.Wallet(11)
+
+    print(wallet1,wallet2)
+
+    # transactions
+    wallet1.send(wallet2, 0.15)
+    print("after transaction:")
+    print(wallet1,wallet2)
+
+    wallet2.send(wallet1, 1)
 
 
 def main():
@@ -36,7 +54,8 @@ def main():
 
 
 if __name__ == '__main__':
+    test_wallet()
     print("testing: ")
     test_hash_function()
     test_transactions()
-    main()
+    #main()
