@@ -1,7 +1,9 @@
 '''
-    TODO:
-        - add block number in metadata              √
-        - add type definition to all functions      √
+TODO:
+    - add block number in metadata              √
+    - add type definition to all functions      √
+    - improve code with better OOP principles (classes, methods)
+
 
         - transactions 
             - class of transactions
@@ -10,19 +12,24 @@
             - add transactions at block creation
             - validate transactions
             
+    - Add a public ledger that multiple 'miners' can work on the project
+        - Create a Blockchain class to manage multiple blocks
+        - Implement method to save the blockchain to a file
+        - Implement method to read the blockchain from a file
 
-        - add a public ledger that more 'miners' 
-          can work on the project
-            - create a Blockchain class
-            - make a method to save to file
+    - Wallets
+        - Implement Wallet class
+        - Add balance checking in transaction validation
+        - Simulate mining rewards being added to miner's wallet
 
-        - add wallets
+    - Network simulation
+        - Implement Node class to simulate network nodes
+        - Create multiple Node instances in different threads to simulate network
+        - When a node creates a transaction, broadcast to all other nodes (pending transactions pool)
+        - When a node mines a new block, broadcast it to all other nodes
+        - Implement consensus algorithm to handle conflicts when different nodes mine new blocks
 
-        - network simulation
-            - create mutliple nodes. Multiple Blockchain instances in different threads
-            - when node creates transaction -> broadcast to all other nodes (pending transa. pool)
-            - when node mines new block -> broadcast it ; important to handle any conflicts
-
-
-    
+    - Other enhancements
+        - Implement periodic difficulty adjustment based on how quickly blocks are being mined
+        - Add more transaction types (eg. contract creation, contract execution)
 '''
