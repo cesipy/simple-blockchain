@@ -28,7 +28,8 @@ def create_first_block(difficulty: int) -> Block:
     meta = metadata.Metadata(difficulty, 1.0, rewards, block_number)
 
     # simulate a list of transactions
-    transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK)
+    wallet_list = transactions.create_wallets(21)
+    transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK, wallet_list)
     block = Block("0", 0, transaction_list, meta)
     return block
 
@@ -43,7 +44,8 @@ def create_next_block(previous_block: Block) -> Block:
     new_nonce = random.randint(1, RANGE)
 
     # simulate list of transactions
-    transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK)
+    wallet_list = transactions.create_wallets(21)
+    transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK, wallet_list)
     block = Block(previous_block.hash, new_nonce, transaction_list, meta)
 
     return proof_of_work(block)

@@ -17,10 +17,11 @@ def test_transactions():
     print("transactions:")
     wallet1 = wallet.Wallet(12, balance=12)
     wallet2 = wallet.Wallet(11)
-    transaction1 = transactions.Transaction(123, 899, 0.01, 1234)
+    transaction1 = transactions.Transaction(123, 899, 0.01)
     print(transaction1)
 
-    transaction_list = transactions.simulate_transactions(19)
+    wallet_list = transactions.create_wallets(4)
+    transaction_list = transactions.simulate_transactions(19, wallet_list)
     print(transaction_list)
 
 
@@ -36,7 +37,7 @@ def test_wallet():
     print("after transaction:")
     print(wallet1,wallet2)
 
-    wallet2.send(wallet1, 1)
+    #wallet2.send(wallet1, 1)
 
 
 def main():

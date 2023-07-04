@@ -2,6 +2,7 @@ from transaction import Transaction
 from wallet import Wallet
 import random
 
+
 def create_wallets(number_wallets: int) -> [Wallet]:
     wallets = []
     for i in range(number_wallets):
@@ -25,5 +26,6 @@ def simulate_transactions(amount_interactions: int, wallet_list: [Wallet]) -> [T
         amount = random.uniform(0.001, sender.get_balance())
         transaction = sender.send(recipient, amount)
         transaction_list.append(transaction)
+        counter += 1
 
     return transaction_list
