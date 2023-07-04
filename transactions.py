@@ -37,14 +37,3 @@ def simulate_transactions(amount_transactions: int) -> [Transaction]:
 
     return transaction_list
 
-
-# testing the transaction class:
-def testing():
-    transaction1 = Transaction(123, 899, 0.01, 1234)
-    print(transaction1)
-
-    transaction_list = simulate_transactions(19)
-    print(transaction_list)
-
-
-testing()

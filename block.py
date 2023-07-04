@@ -2,18 +2,20 @@ import time
 import hash_function
 import metadata
 import random
+import transactions
 
 RANGE = 1234
+AMOUNT_TRANSACTIONS_IN_BLOCK = 100
 
 
 class Block:
-    def __init__(self, prev_hash, nonce, transactions, meta_data):
+    def __init__(self, prev_hash, nonce, transaction_list, meta_data):
         self.prev_hash = prev_hash
         self.timestamp = time.time()
         self.nonce = nonce
         self.hash = hash_function.calculate_hash(
             self)  # hash is calculated, so does not need to be passed in constructor
-        self.transactions = transactions
+        self.transactions = transaction_list
         self.metadata = meta_data
 
     def __repr__(self):
@@ -24,7 +26,10 @@ def create_first_block(difficulty: int) -> Block:
     rewards = 6.5
     block_number = 1
     meta = metadata.Metadata(difficulty, 1.0, rewards, block_number)
-    block = Block("0", 0, [], meta)
+
+    # simulate a list of transactions
+    transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK)
+    block = Block("0", 0, transaction_list, meta)
     return block
 
 
@@ -36,7 +41,10 @@ def create_next_block(previous_block: Block) -> Block:
     meta = metadata.Metadata(difficulty, version, rewards, block_number)
 
     new_nonce = random.randint(1, RANGE)
-    block = Block(previous_block.hash, new_nonce, [], meta)
+
+    # simulate list of transactions
+    transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK)
+    block = Block(previous_block.hash, new_nonce, transaction_list, meta)
 
     return proof_of_work(block)
 
