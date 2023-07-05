@@ -1,5 +1,5 @@
 import block
-
+import blockchain
 import transactions
 import wallet
 
@@ -40,6 +40,22 @@ def test_wallet():
     # wallet2.send(wallet1, 1)
 
 
+def test_blockchain_class():
+    print("blockchain:")
+    blockchain_test = blockchain.Blockchain(DIFF)
+
+    genesis_block = block.create_first_block(DIFF)
+    blockchain_test.add_block(genesis_block)
+    previous_block = genesis_block
+
+    for i in range(5):
+        current_block = block.create_next_block(previous_block)
+        blockchain_test.add_block(current_block)
+        previous_block = current_block
+
+    blockchain_test.save_to_file("blockchain.txt")
+
+
 def main():
     print("main functionality:")
     # generate genesis block
@@ -55,8 +71,9 @@ def main():
 
 
 if __name__ == '__main__':
+    test_blockchain_class()
     # test_wallet()
     # print("testing: ")
     # test_hash_function()
     # test_transactions()
-    main()
+    #main()
