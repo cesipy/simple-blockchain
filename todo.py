@@ -33,4 +33,22 @@ TODO:
     - Other enhancements
         - Implement periodic difficulty adjustment based on how quickly blocks are being mined
         - Add more transaction types (eg. contract creation, contract execution)
-'''
+
+    - Implement P2P Networking
+        - Create a P2P network of nodes using libraries like socket or asyncio
+        - Define protocols for nodes to connect, disconnect, send and receive messages
+
+    - Modify Wallet and Block classes for network operations
+        - Modify Wallet's send() method to broadcast transactions to all connected nodes
+        - Modify proof_of_work() method to broadcast new block to all connected nodes
+
+    - Blockchain Consensus Protocol
+        - Implement a protocol to handle conflicts (when nodes have different versions of the blockchain)
+
+    - Persistency
+        - Save blockchain data to disk periodically
+        - Load blockchain data from disk at startup
+
+    - Security Measures
+        - Implement transaction verification to prevent double-spending
+        - Validate mined blocks before adding them to the blockchain'''
