@@ -5,13 +5,14 @@ TODO:
     - improve code with better OOP principles (classes, methods)
 
 
-        - transactions 
-            - class of transactions
-            - random transactions simulator
-            - own functuion to create a list of transactions that will be added to the next block
-            - add transactions at block creation
-            - validate transactions
-            
+    - transactions
+        - class of transactions                 √
+        - random transactions simulator         √
+        - own function to create a list of transactions
+        that will be added to the next block    √
+        - add transactions at block creation    √
+        - validate transactions
+
     - Add a public ledger that multiple 'miners' can work on the project
         - Create a Blockchain class to manage multiple blocks
         - Implement method to save the blockchain to a file
