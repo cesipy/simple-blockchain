@@ -1,5 +1,4 @@
 import time
-import hash_function
 import metadata
 import random
 import transactions
@@ -14,8 +13,7 @@ class Block:
         self.prev_hash = prev_hash
         self.timestamp = time.time()
         self.nonce = nonce
-        self.hash = hash_function.calculate_hash(
-            self)  # hash is calculated, so does not need to be passed in constructor
+        self.hash = calculate_hash(self)  # hash is calculated, so does not need to be passed in constructor
         self.transactions = transaction_list
         self.metadata = meta_data
 
@@ -61,7 +59,7 @@ def proof_of_work(block: Block) -> Block:
     # use bruteforce to find valid hash
     while (trying_hash[0:difficulty] != difficulty_compare):
         block.nonce += 1
-        trying_hash = hash_function.calculate_hash(
+        trying_hash = calculate_hash(
             block)
     block.hash = trying_hash
 

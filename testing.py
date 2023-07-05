@@ -1,5 +1,5 @@
 import block
-import hash_function
+
 import transactions
 import wallet
 
@@ -9,7 +9,7 @@ DIFF = 1  # change if you want faster block creation
 def test_hash_function():
     print("hash function:")
     genesis_block = block.create_first_block(DIFF)
-    print(hash_function.calculate_hash(genesis_block))
+    print(block.calculate_hash(genesis_block))
 
 
 # testing the transaction class:
