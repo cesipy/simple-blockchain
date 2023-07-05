@@ -3,6 +3,7 @@ import hash_function
 import metadata
 import random
 import transactions
+import hashlib
 
 RANGE = 1234
 AMOUNT_TRANSACTIONS_IN_BLOCK = 100
@@ -54,8 +55,7 @@ def create_next_block(previous_block: Block) -> Block:
 def proof_of_work(block: Block) -> Block:
     difficulty = block.metadata.difficulty
 
-    trying_hash = hash_function.calculate_hash(
-        block)  # is first computed hash a valid hash
+    trying_hash = calculate_hash(block)  # is first computed hash a valid hash
     difficulty_compare = '0' * difficulty  # essentially '00...' - amount of leading zeros
 
     # use bruteforce to find valid hash
@@ -66,3 +66,11 @@ def proof_of_work(block: Block) -> Block:
     block.hash = trying_hash
 
     return block
+
+
+def calculate_hash(current_block: Block) -> str:
+    meta_data = f"{current_block.prev_hash} plus {current_block.timestamp} plus {current_block.nonce}"
+    h = hashlib.blake2b()  # create hash object
+    h.update(meta_data.encode())
+    time.sleep(0.001)
+    return h.hexdigest()

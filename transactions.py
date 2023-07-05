@@ -13,6 +13,9 @@ def create_wallets(number_wallets: int) -> [Wallet]:
 
 
 def simulate_transactions(amount_interactions: int, wallet_list: [Wallet]) -> [Transaction]:
+    """
+    simulate an amount of transactions and return a list of transactions
+    """
     counter = 0
     transaction_list = []
 
@@ -20,10 +23,10 @@ def simulate_transactions(amount_interactions: int, wallet_list: [Wallet]) -> [T
         sender = wallet_list[random.randint(0, len(wallet_list) - 1)]
         recipient = wallet_list[random.randint(0, len(wallet_list) - 1)]
 
-        while sender == recipient:
-            recipient = wallet_list[random.randint(0, len(wallet_list) - 1)]
+        while sender == recipient or sender.get_balance() < 0.005:
+            sender = wallet_list[random.randint(0, len(wallet_list) - 1)]
 
-        amount = random.uniform(0.001, sender.get_balance())
+        amount = min(sender.get_balance(), random.uniform(0.001, sender.get_balance()))
         transaction = sender.send(recipient, amount)
         transaction_list.append(transaction)
         counter += 1

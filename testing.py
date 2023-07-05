@@ -3,7 +3,7 @@ import hash_function
 import transactions
 import wallet
 
-DIFF = 3  # change if you want faster block creation
+DIFF = 1  # change if you want faster block creation
 
 
 def test_hash_function():
@@ -30,14 +30,14 @@ def test_wallet():
     wallet1 = wallet.Wallet(12, balance=12)
     wallet2 = wallet.Wallet(11)
 
-    print(wallet1,wallet2)
+    print(wallet1, wallet2)
 
     # transactions
     wallet1.send(wallet2, 0.15)
     print("after transaction:")
-    print(wallet1,wallet2)
+    print(wallet1, wallet2)
 
-    #wallet2.send(wallet1, 1)
+    # wallet2.send(wallet1, 1)
 
 
 def main():
@@ -48,15 +48,15 @@ def main():
     print(previous_block, '\n')
 
     # create
-    for i in range(5):
+    for i in range(100):
         current_block = block.create_next_block(previous_block)
         print(current_block, '\n')
         previous_block = current_block
 
 
 if __name__ == '__main__':
-    test_wallet()
-    print("testing: ")
-    test_hash_function()
-    test_transactions()
-    #main()
+    # test_wallet()
+    # print("testing: ")
+    # test_hash_function()
+    # test_transactions()
+    main()
