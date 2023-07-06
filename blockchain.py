@@ -39,29 +39,15 @@ class Blockchain:
     def add_block(self, block):
         self.blocks.append(block)
 
-    def block_mined(self, block):
-        with self.lock:
-            if self.current_block_available and block.hash == self.candidate_block.hash:
-                self.blocks.append(block)
-                self.current_block_available = False
-                print(f"Block mined by miner: {block}")
-                self.candidate_block = None
-                return True
-            return False
-
-    def new_block(self):
-        with self.lock:
-            if not self.current_block_available and self.candidate_block is None:
-                self.candidate_block = self.create_candidate(self.blocks[-1])
-                self.current_block_available = True
-                time.sleep(3)
-
     def save_to_file(self, file_path):
         with open(file_path, 'w') as f:
             for block in self.blocks:
                 f.write(str(block) + '\n')
 
     def create_first_block(self) -> Block:
+        """
+        creates genesis block. simulates transactions and adds transaction list to block
+        """
         rewards = 6.5
         block_number = 1
         difficulty = self.difficulty  # fetch difficulty of blockchain and save in metadata
@@ -79,17 +65,14 @@ class Blockchain:
         return block
 
     def add_next_block(self, block):
-
         self.add_block(block)
         self.block_counter += 1
         self.current_block_available = False
-
 
     def start_new_iteration(self, block):
         self.candidate_block = self.create_candidate(block)
 
         self.current_block_available = True
-
 
     def create_candidate(self, previous_block: Block) -> Block:
         """
@@ -108,13 +91,25 @@ class Blockchain:
         return block
 
     def get_update(self):
+        """
+         fetches current information of the blockchain and returns block counter as well the flag if
+         current block is already mined or not (bool)
+        """
         self.lock.acquire()
         counter = self.block_counter
         available = self.current_block_available
         self.lock.release()
+
         return counter, available
 
     def create_next_block(self, previous_block: Block) -> Block:
+        """
+        creates next block given the previous block.
+        simulates transactions and adds list of transactions to block. at the end, proof of work is called,
+        to use computation making it more secure.
+
+        only used, if there are no miners.
+        """
         metadata_from_prev = previous_block.metadata
         # get all the parameter for metadata from prev block
         difficulty, version, rewards, block_number = metadata_from_prev.get_params()

@@ -5,7 +5,7 @@ import wallet, time
 from miner import Miner
 from threading import Thread
 
-DIFF = 1  # change if you want faster block creation
+DIFF = 5  # change if you want faster block creation
 
 
 def test_hash_function():

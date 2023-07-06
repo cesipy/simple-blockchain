@@ -1,8 +1,6 @@
 import time
-
 import wallet
-from blockchain \
-    import proof_of_work
+from blockchain import proof_of_work
 
 
 class Miner(wallet.Wallet):
@@ -14,8 +12,16 @@ class Miner(wallet.Wallet):
         self.running = True
 
     def mine(self):
+        """
+        miner competes with other miners using this function.
+        each miner gets the candidate block (processed by blockchain)
+        and tries to solve PoW.
+
+        winning miner gets reward specified in block header.
+        :return:
+        """
         while self.counter < 10:
-            print(self.counter)
+            #print(self.counter)
 
             self.counter, available = self.blockchain.get_update()
             self.blockchain.lock.acquire()
