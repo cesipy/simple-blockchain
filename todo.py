@@ -1,5 +1,14 @@
 '''
 TODO:
+    quick:
+    - showcase program without miners
+    - docstring for all (important) methods
+    - refactor and merge
+    - miner should get reward (on blockchain)
+    - miner info stored in metadata (also include
+    in create_first_block, create_next_block)
+
+
     - add block number in metadata              √
     - add type definition to all functions      √
     - improve code with better OOP principles (classes, methods)
@@ -18,9 +27,9 @@ TODO:
         - Implement method to read the blockchain from a file
 
     - Wallets
-        - Implement Wallet class
-        - Add balance checking in transaction validation
-        - Simulate mining rewards being added to miner's wallet
+        - Implement Wallet class                                √
+        - Add balance checking in transaction validation        √
+        - Simulate mining rewards being added to miner's wallet √
 
     - Network simulation
         - Implement Node class to simulate network nodes
