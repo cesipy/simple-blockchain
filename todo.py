@@ -4,7 +4,6 @@ TODO:
     - add type definition to all functions      √
     - improve code with better OOP principles (classes, methods)
 
-
     - transactions
         - class of transactions                 √
         - random transactions simulator         √

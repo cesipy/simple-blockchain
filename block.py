@@ -10,11 +10,13 @@ class Block:
         self.prev_hash = prev_hash
         self.timestamp = time.time()
         self.nonce = nonce
-        self.hash = hash_function.calculate_hash(self)  # hash is calculated, so does not need to be passed in constructor
+        self.hash = hash_function.calculate_hash(self) #hash is calculated, so does not need to be passed in constructor
         self.transactions = transaction_list
         self.metadata = meta_data
 
     def __repr__(self):
         return f"Block {self.metadata.block_number}: {self.hash} from {self.timestamp}"
 
-
+    '''def hash(self):
+        hash_function.calculate_hash(self)
+'''

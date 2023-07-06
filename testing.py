@@ -1,8 +1,9 @@
-import block
 import hash_function
 from blockchain import Blockchain
 import transactions
-import wallet
+import wallet, time
+from miner import Miner
+from threading import Thread
 
 DIFF = 1  # change if you want faster block creation
 
@@ -60,7 +61,7 @@ def test_blockchain_class():
     blockchain.save_to_file("blockchain.txt")
 
 
-def main():
+def test_single_miner():
     print("main functionality:")
     # generate genesis block
     blockchain = Blockchain(DIFF)
@@ -79,9 +80,35 @@ def main():
     blockchain.save_to_file('blockchain.txt')
 
 
+def main():
+    blockchain = Blockchain(DIFF)
+
+    genesis_block = blockchain.create_first_block()
+    blockchain.add_block(genesis_block)
+
+    # miners
+    miners = [Miner(i, blockchain, 100) for i in range(5)]
+
+    threads = []
+    for miner in miners:
+        miner_thread = Thread(target=miner.mine)
+        miner_thread.start()
+        threads.append(miner_thread)
+
+    # make main thread wait for all miner threads to finish
+    for thread in threads:
+        thread.join()
+
+    # print out all the blocks in the blockchain
+    for _block in blockchain.blocks:
+        print(_block)
+
+    blockchain.save_to_file("blockchain.txt")
+
+
 if __name__ == '__main__':
-    #test_blockchain_class()
-    #test_wallet()
-    #test_hash_function()
-    #test_transactions()
+    # test_blockchain_class()
+    # test_wallet()
+    # test_hash_function()
+    # test_transactions()
     main()
