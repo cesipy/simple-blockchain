@@ -3,10 +3,10 @@ from wallet import Wallet
 import random
 
 
-def create_wallets(number_wallets: int) -> [Wallet]:
+def create_wallets(number_wallets: int, blockchain) -> [Wallet]:
     wallets = []
     for i in range(number_wallets):
-        new_wallet = Wallet(i, random.uniform(1.0, 100.0))
+        new_wallet = Wallet(i, blockchain,  random.uniform(1.0, 100.0))
         wallets.append(new_wallet)
 
     return wallets

@@ -2,9 +2,10 @@ from transaction import Transaction
 
 
 class Wallet:
-    def __init__(self, address: int, balance=0):
+    def __init__(self, address: int, blockchain, balance=0):
         self.address = address
         self.balance = balance  # balance in constructor only used for testing! should be removed
+        self.blockchain = blockchain
 
     def send(self, recipient_wallet, amount: float) -> Transaction:
         """
@@ -16,7 +17,7 @@ class Wallet:
 
         recipient_wallet.update_balance(amount)
         self.balance -= amount
-        print(f"Wallet {self.address} sent {amount} to Wallet {recipient_wallet.address}")
+        # print(f"Wallet {self.address} sent {amount} to Wallet {recipient_wallet.address}")
 
         transaction = Transaction(self, recipient_wallet, amount)
         return transaction

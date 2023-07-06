@@ -1,5 +1,6 @@
 import block
-import blockchain
+import hash_function
+from blockchain import Blockchain
 import transactions
 import wallet
 
@@ -8,27 +9,30 @@ DIFF = 1  # change if you want faster block creation
 
 def test_hash_function():
     print("hash function:")
-    genesis_block = block.create_first_block(DIFF)
-    print(block.calculate_hash(genesis_block))
+    blockchain = Blockchain(DIFF)
+    genesis_block = blockchain.create_first_block()
+    print(hash_function.calculate_hash(genesis_block))
 
 
 # testing the transaction class:
 def test_transactions():
     print("transactions:")
-    wallet1 = wallet.Wallet(12, balance=12)
-    wallet2 = wallet.Wallet(11)
+    blockchain = Blockchain(DIFF)
+    wallet1 = wallet.Wallet(12, blockchain, balance=12)
+    wallet2 = wallet.Wallet(11, blockchain)
     transaction1 = transactions.Transaction(123, 899, 0.01)
     print(transaction1)
 
-    wallet_list = transactions.create_wallets(4)
+    wallet_list = transactions.create_wallets(4, blockchain)
     transaction_list = transactions.simulate_transactions(19, wallet_list)
     print(transaction_list)
 
 
 def test_wallet():
     print("wallets:")
-    wallet1 = wallet.Wallet(12, balance=12)
-    wallet2 = wallet.Wallet(11)
+    blockchain = Blockchain(DIFF)
+    wallet1 = wallet.Wallet(12, blockchain, balance=12)
+    wallet2 = wallet.Wallet(11, blockchain)
 
     print(wallet1, wallet2)
 
@@ -42,38 +46,42 @@ def test_wallet():
 
 def test_blockchain_class():
     print("blockchain:")
-    blockchain_test = blockchain.Blockchain(DIFF)
+    blockchain = Blockchain(DIFF)
 
-    genesis_block = block.create_first_block(DIFF)
-    blockchain_test.add_block(genesis_block)
+    genesis_block = blockchain.create_first_block()
+    blockchain.add_block(genesis_block)
     previous_block = genesis_block
 
     for i in range(5):
-        current_block = block.create_next_block(previous_block)
-        blockchain_test.add_block(current_block)
+        current_block = blockchain.create_next_block(previous_block)
+        blockchain.add_block(current_block)
         previous_block = current_block
 
-    blockchain_test.save_to_file("blockchain.txt")
+    blockchain.save_to_file("blockchain.txt")
 
 
 def main():
     print("main functionality:")
     # generate genesis block
-    genesis_block = block.create_first_block(DIFF)
+    blockchain = Blockchain(DIFF)
+    genesis_block = blockchain.create_first_block()
+    blockchain.add_block(genesis_block)
     previous_block = genesis_block
     print(previous_block, '\n')
 
     # create
     for i in range(100):
-        current_block = block.create_next_block(previous_block)
+        current_block = blockchain.create_next_block(previous_block)
+        blockchain.add_block(current_block)
         print(current_block, '\n')
         previous_block = current_block
 
+    blockchain.save_to_file('blockchain.txt')
+
 
 if __name__ == '__main__':
-    test_blockchain_class()
-    # test_wallet()
-    # print("testing: ")
-    # test_hash_function()
-    # test_transactions()
-    #main()
+    #test_blockchain_class()
+    #test_wallet()
+    #test_hash_function()
+    #test_transactions()
+    main()
