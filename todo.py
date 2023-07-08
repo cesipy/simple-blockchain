@@ -7,8 +7,7 @@ TODO:
     - miner should get reward (on blockchain)
     - miner info stored in metadata (also include
     in create_first_block, create_next_block)
-
-
+    - make repo clean with different folders
     - add block number in metadata              √
     - add type definition to all functions      √
     - improve code with better OOP principles (classes, methods)
