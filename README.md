@@ -16,4 +16,9 @@ The Proof of Work algorithm ensures that the puzzle-solving process requires sig
 
 
 ### optimal amount of threads/miners ###
+I tested this simulation with various numbers of miners (=threads) to determine the optimum.
+The graph below shows the result of the average time taken per number of threads:
+
 ![Screenshot](additional_files/avg_time_per_thread.png)
+
+Based on this graph, the optimal amount of miners on my machine (MacBook Pro M1) is 10.
