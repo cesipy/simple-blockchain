@@ -1,4 +1,3 @@
-import time
 import wallet
 from blockchain import proof_of_work
 
@@ -18,10 +17,8 @@ class Miner(wallet.Wallet):
         and tries to solve PoW.
 
         winning miner gets reward specified in block header.
-        :return:
         """
         while self.counter < 10:
-            #print(self.counter)
 
             self.counter, available = self.blockchain.get_update()
             self.blockchain.lock.acquire()
@@ -32,12 +29,12 @@ class Miner(wallet.Wallet):
                 self.blockchain.lock.release()
 
                 mined_block = proof_of_work(block)
-                #print("mined block")
+
                 self.blockchain.lock.acquire()
 
                 # if counter differ -> another miner finished first
                 if self.blockchain.block_counter == self.counter and self.blockchain.current_block_available:
-                    print("successfully added block!")
+                    # print(f"Miner {self.address} successfully added block {mined_block}")
                     self.blockchain.add_next_block(mined_block)
                     self.blockchain.start_new_iteration(mined_block)
 
@@ -47,8 +44,13 @@ class Miner(wallet.Wallet):
 
                 self.blockchain.lock.release()
 
-            time.sleep(2)
+            # simulate additional work load
+            #time.sleep(2)
+            # update variables for next iteration
             self.counter, available = self.blockchain.get_update()
 
     def stop(self):
         self.running = False
+
+    def __repr(self):
+        return f"Miner {self.address}: balance: {self.balance}"

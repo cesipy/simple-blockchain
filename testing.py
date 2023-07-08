@@ -1,11 +1,11 @@
 import hash_function
 from blockchain import Blockchain
 import transactions
-import wallet, time
+import wallet
 from miner import Miner
 from threading import Thread
 
-DIFF = 5  # change if you want faster block creation
+DIFF = 2  # change if you want faster block creation
 
 
 def test_hash_function():
@@ -19,8 +19,8 @@ def test_hash_function():
 def test_transactions():
     print("transactions:")
     blockchain = Blockchain(DIFF)
-    wallet1 = wallet.Wallet(12, blockchain, balance=12)
-    wallet2 = wallet.Wallet(11, blockchain)
+    # wallet1 = wallet.Wallet(12, blockchain, balance=12)
+    # wallet2 = wallet.Wallet(11, blockchain)
     transaction1 = transactions.Transaction(123, 899, 0.01)
     print(transaction1)
 
@@ -80,14 +80,14 @@ def test_single_miner():
     blockchain.save_to_file('blockchain.txt')
 
 
-def main():
+def test_main(number_threads):
     blockchain = Blockchain(DIFF)
 
     genesis_block = blockchain.create_first_block()
     blockchain.add_block(genesis_block)
 
     # miners
-    miners = [Miner(i, blockchain, 100) for i in range(5)]
+    miners = [Miner(i, blockchain, 100) for i in range(number_threads)]
 
     threads = []
     for miner in miners:
@@ -100,8 +100,11 @@ def main():
         thread.join()
 
     # print out all the blocks in the blockchain
-    for _block in blockchain.blocks:
-        print(_block)
+    for block in blockchain.blocks:
+        print(block)
+
+    for miner in miners:
+        print(miner)
 
     blockchain.save_to_file("blockchain.txt")
 
@@ -111,4 +114,4 @@ if __name__ == '__main__':
     # test_wallet()
     # test_hash_function()
     # test_transactions()
-    main()
+    test_main(10)
