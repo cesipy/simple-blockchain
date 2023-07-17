@@ -37,9 +37,15 @@ class Blockchain:
         self.block_counter = 0
 
     def add_block(self, block):
+        """
+        add block 'block' to the blockchain.
+        """
         self.blocks.append(block)
 
     def save_to_file(self, file_path):
+        """
+        save the current state of the blockchain in the file specified by 'file_path'.
+        """
         with open(file_path, 'w') as f:
             for block in self.blocks:
                 f.write(str(block) + '\n')
@@ -65,11 +71,19 @@ class Blockchain:
         return block
 
     def add_next_block(self, block):
+        """
+        updates the current state of the blockchain. 'block' is added to the blockchain and the counter for the number
+        of blocks in blockchain is updated. blockchain gets updated, that no current block is available.
+        """
         self.add_block(block)
         self.block_counter += 1
         self.current_block_available = False
 
     def start_new_iteration(self, block):
+        """
+        new block is available. a new block candidate is created and flag is set, indicating a new block is available
+        for miners.
+        """
         self.candidate_block = self.create_candidate(block)
 
         self.current_block_available = True

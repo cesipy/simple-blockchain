@@ -4,6 +4,10 @@ import random
 
 
 def create_wallets(number_wallets: int, blockchain) -> [Wallet]:
+    """
+    creates 'number_wallets' wallets and returns a list of those wallets.
+    this can be used to simulate transactions on the blockchain
+    """
     wallets = []
     for i in range(number_wallets):
         new_wallet = Wallet(i, blockchain,  random.uniform(1.0, 100.0))
