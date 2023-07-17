@@ -1,6 +1,8 @@
 import wallet
 from blockchain import proof_of_work
 
+ITERATIONS_IN_MINER = 10  # maximum amount of blocks each miner mines.
+
 
 class Miner(wallet.Wallet):
 
@@ -18,7 +20,7 @@ class Miner(wallet.Wallet):
 
         winning miner gets reward specified in block header.
         """
-        while self.counter < 10:
+        while self.counter < ITERATIONS_IN_MINER:
 
             self.counter, available = self.blockchain.get_update()
             self.blockchain.lock.acquire()
@@ -28,15 +30,19 @@ class Miner(wallet.Wallet):
 
                 self.blockchain.lock.release()
 
+                # to proof of work. mutex is released so that other miners have the chance to mine as well
                 mined_block = proof_of_work(block)
 
+                # if mining is successful the miners acquires the mutex and checks if this was the right block
+                #
                 self.blockchain.lock.acquire()
 
                 # if counter differ -> another miner finished first
                 if self.blockchain.block_counter == self.counter and self.blockchain.current_block_available:
-                    # print(f"Miner {self.address} successfully added block {mined_block}")
+
+                    print(f"Miner {self.address} successfully added block {mined_block}")
                     self.blockchain.add_next_block(mined_block)
-                    self.blockchain.start_new_iteration(mined_block)
+                    self.blockchain.start_new_iteration(mined_block)    # creates new candidate for next iteration
 
                 self.blockchain.lock.release()
 
@@ -45,7 +51,7 @@ class Miner(wallet.Wallet):
                 self.blockchain.lock.release()
 
             # simulate additional work load
-            #time.sleep(2)
+            # time.sleep(2)
             # update variables for next iteration
             self.counter, available = self.blockchain.get_update()
 

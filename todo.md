@@ -9,3 +9,4 @@
 - [ ] save blockchain ( not just .txt) to disk
 - [ ] ability to load blockchain
 - [ ] validate mined blocks
+- [ ] visualisation of blockchain like blockexplorer
