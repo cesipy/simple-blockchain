@@ -98,6 +98,8 @@ class Blockchain:
         meta = metadata.Metadata(difficulty, version, rewards, block_number)
         new_nonce = random.randint(1, RANGE)
 
+        # simulate transactions. is de facto too simple, has to undergo major changes in order to
+        # allow proper transactions from wallets / miners
         wallet_list = transactions.create_wallets(21, self)
         transaction_list = transactions.simulate_transactions(AMOUNT_TRANSACTIONS_IN_BLOCK, wallet_list)
         block = Block(previous_block.hash, new_nonce, transaction_list, meta)

@@ -9,4 +9,5 @@
 - [ ] save blockchain ( not just .txt) to disk
 - [ ] ability to load blockchain
 - [ ] validate mined blocks
-- [ ] visualisation of blockchain like blockexplorer
+- [ ] visualisation of blockchain like block explorer
+- [ ] make main.py to run blockchain automatically without any constrains
